@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>{{title}}</title>
+	<link rel="stylesheet" href="/stylesheets/style.css" />
+	<!--[if IE]>
+	<link rel="stylesheet" href="/stylesheets/style_ie.css" />
+	<script language="javascript">
+	function copyToClipboard() {
+		objTextRange = txtFilenames.createTextRange();
+		objTextRange.execCommand("Copy");
+	}
+	</script>
+	<![endif]-->
+</head>
+
+<body>
+	<div class="header">
+		<div id="logo"></div>
+		<div class="content">
+			<h1>{{title}}</h1>
+		</div>
+	</div>
+
+	<div class="content">
+		<p>
+			<span class="bold">Successfully uploaded to:</span><br/>
+			{{#isMultipleImages}}
+				{{filenames}}
+			{{/isMultipleImages}}
+			{{^isMultipleImages}}
+				{{#locations}}{{#displayLink}}<a href="{{location}}">{{/displayLink}}{{filename}}{{#displayLink}}</a>{{/displayLink}}{{/locations}}
+			{{/isMultipleImages}}
+		</p>
+
+		<textarea id="txtFilenames" style="display:none">{{filenames}}</textarea>
+
+		<p>
+			{{copyMessage}}
+			<!--[if IE]>
+				<br/><a href="#" onclick="copyToClipboard()">Copy to clipboard</a>
+			<![endif]-->
+		</p>
+
+		<p><a href="/imageupload/select" class="text_buttons">Select another image</a></p>
+	</div>
+
+</body>
+
+</html>

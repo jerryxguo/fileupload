@@ -1,0 +1,50 @@
+@charset "UTF-8";
+
+.header {
+	background-color: #0E2548;
+	width: 100%;
+	height: auto;
+	margin-bottom: 20px;
+}
+
+h1 {
+	color: #eee;
+	font-family: "Helvetica Neue Regular";
+	font-weight: normal;
+	font-size: 37px;
+	padding: 28px 0 20px 0;
+	display: inline-block;
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=hIEfix.png,sizingMethod=crop);
+	zoom: 1;
+}
+
+td {
+	vertical-align: top;
+}
+
+input[type="radio"] {
+	vertical-align: top;
+	position: relative;
+	top: 8px;
+}
+
+input[type="text"] {
+	position: relative;
+	top: 6px;
+}
+
+img {
+	behavior: url(../javascript/fixnaturalwh.htc);
+}
+
+.overlay_background {
+	background-color: black;
+	filter: alpha(opacity=80) progid:DXImageTransform.Microsoft.gradient( startColorstr='#330c1737', endColorstr='#07112d',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+}

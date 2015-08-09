@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>{{title}}</title>
+	<link rel="stylesheet" href="/stylesheets/style.css" />
+	<!--[if IE]>
+	<link rel="stylesheet" href="/stylesheets/style_ie.css" />
+	<![endif]-->
+	<script src="/javascript/imageupload_ui.js"></script>
+</head>
+
+<body>
+	<div class="header">
+		<div id="logo"></div>
+		<div class="content">
+			<h1>{{title}}</h1>
+		</div>
+	</div>
+
+	<div class="content">
+		<p>{{#errors}}<ul><li class="error">{{error}}</li>{{/errors}}</ul></p>
+
+		<form action="/imageupload/select" method="POST" enctype="multipart/form-data">
+
+			<p class="bold">Please select the type of image:</p>
+			<div class="block_colour">
+				<table border=0>
+
+					<!-- Fields for VOD images -->
+					<tr>
+						<td style="vertical-align:top">
+							<input type="radio" id="radImageType_VOD" name="imageType" value="VOD" onclick="enableImageTypeFields()" {{#isVOD}}checked{{/isVOD}}></input>
+							<label for="radImageType_VOD" class="bold">VOD</label>
+						</td>
+						<td class="indented">
+							<label for="txtVODContentID" id="lblVODContentID" {{^isVOD}}class="disabled"{{/isVOD}}>Content ID:</label>
+						</td>
+						<td class="indented"><input type="text" id="txtVODContentID" name="vodContentID" value="{{vodContentID}}" {{^isVOD}}disabled{{/isVOD}}/></td>
+					</tr>
+					<tr>
+						<td/>
+						<td class="indented">
+							<label id="lblVODImageCategory" {{^isVOD}}class="disabled"{{/isVOD}}>Aspect:</label>
+						</td>
+						<td class="indented">
+							<input type="radio" id="radVODImageCategory_LANDSCAPE" name="vodImageCategory" value="LANDSCAPE" onclick="enableImageCategoryFields()" {{#isVOD_LANDSCAPE}}checked{{/isVOD_LANDSCAPE}} {{^isVOD}}disabled{{/isVOD}}>
+								<label for="radVODImageCategory_LANDSCAPE" id="lblVODImageCategory_LANDSCAPE" {{^isVOD}}class="disabled"{{/isVOD}}>Landscape</label>
+							</input>
+							<input type="radio" id="radVODImageCategory_POSTER" name="vodImageCategory" value="POSTER" onclick="enableImageCategoryFields()" {{#isVOD_POSTER}}checked{{/isVOD_POSTER}} {{^isVOD}}disabled{{/isVOD}}>
+								<label for="radVODImageCategory_POSTER" id="lblVODImageCategory_POSTER" {{^isVOD}}class="disabled"{{/isVOD}}>Poster</label>
+							</input>
+							<input type="radio" id="radVODImageCategory_SQUARE" name="vodImageCategory" value="SQUARE" onclick="enableImageCategoryFields()" {{#isVOD_SQUARE}}checked{{/isVOD_SQUARE}} {{^isVOD}}disabled{{/isVOD}}>
+								<label for="radVODImageCategory_SQUARE" id="lblVODImageCategory_SQUARE" {{^isVOD}}class="disabled"{{/isVOD}}>Square</label>
+							</input>
+						</td>
+					</tr>
+
+					<!-- Fields for NODE images -->
+					<tr>
+						<td>
+							<input type="radio" id="radImageType_NODE" name="imageType" value="NODE" onclick="enableImageTypeFields()" {{#isNODE}}checked{{/isNODE}}>
+								<label for="radImageType_NODE" class="bold">Node</label>
+							</input>
+						</td>
+						<td class="indented">
+							<label for="txtNODENodeID" id="lblNODENodeID" {{^isNODE}}class="disabled"{{/isNODE}}>Node Public ID:</label>
+						</td>
+						<td class="indented"><input type="text" id="txtNODENodeID" name="nodeNodeID" value="{{nodeNodeID}}" {{^isNODE}}disabled{{/isNODE}}/></td>
+					</tr>
+					<tr>
+						<td/>
+						<td class="indented">
+							<label id="lblNODEImageCategory" {{^isNODE}}class="disabled"{{/isNODE}}>Category:</label>
+						</td>
+						<td class="indented">
+							<input type="radio" id="radNODEImageCategory_SINGLEIMAGE" name="nodeImageCategory" value="SINGLEIMAGE" onclick="enableImageCategoryFields()" {{#isNODE_SINGLEIMAGE}}checked{{/isNODE_SINGLEIMAGE}} {{^isNODE}}disabled{{/isNODE}}>
+								<label for="radNODEImageCategory_SINGLEIMAGE" id="lblNODEImageCategory_SINGLEIMAGE" {{^isNODE}}class="disabled"{{/isNODE}}>Single Image</label>
+							</input>
+							<input type="radio" id="radNODEImageCategory_CHANNELPAGE" name="nodeImageCategory" value="CHANNELPAGE" onclick="enableImageCategoryFields()" {{#isNODE_CHANNELPAGE}}checked{{/isNODE_CHANNELPAGE}} {{^isNODE}}disabled{{/isNODE}}>
+								<label for="radNODEImageCategory_CHANNELPAGE" id="lblNODEImageCategory_CHANNELPAGE" {{^isNODE}}class="disabled"{{/isNODE}}>Channel Page</label>
+							</input>
+						</td>
+					</tr>
+
+					<!-- Fields for SERIES images -->
+					<tr>
+						<td>
+							<input type="radio" id="radImageType_SERIES" name="imageType" value="SERIES" onclick="enableImageTypeFields()" {{#isSERIES}}checked{{/isSERIES}}>
+								<label for="radImageType_SERIES" class="bold">Series</label>
+							</input>
+						</td>
+						<td class="indented">
+							<label for="txtSERIESSeriesID" id="lblSERIESSeriesID" {{^isSERIES}}class="disabled"{{/isSERIES}}>Series ID:</label>
+						</td>
+						<td class="indented"><input type="text" id="txtSERIESSeriesID" name="seriesSeriesID" value="{{seriesSeriesID}}" {{^isSERIES}}disabled{{/isSERIES}}/></td>
+						<input type="hidden" name="seriesImageCategory" value="SINGLEIMAGE">
+					</tr>
+				</table>
+			</div>
+
+			<p id="lblSelectFiles" class="bold">Please select the image{{^isSingleFileUpload}}s{{/isSingleFileUpload}} to upload:</p>
+			<div class="block_colour">
+				<table id="tblFileUpload_single" border=0 {{^isSingleFileUpload}}style="display:none"{{/isSingleFileUpload}}>
+					<tr>
+						<td/>
+						<td>
+							<input type="file" accept="image/*" id="filImage_single" name="imageFile_single" class="text_buttons"/>
+						</td>
+					</tr>
+				</table>
+				<table id="tblFileUpload_multiple" border=0 {{#isSingleFileUpload}}style="display:none"{{/isSingleFileUpload}}>
+					<tr id="rowImageFile_background">
+						<td style="padding-right: 10px">
+							<label for="filImage_background">Background:</label>
+						</td>
+						<td>
+							<input type="file" accept="image/*" id="filImage_background" name="imageFile_background" class="text_buttons"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="filImage_logo">Logo:</label>
+						</td>
+						<td>
+							<input type="file" accept="image/*" id="filImage_logo" name="imageFile_logo" class="text_buttons"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="filImage_cover">Cover:<br><span class="note">Optional</span></label>
+						</td>
+						<td>
+							<input type="file" accept="image/*" id="filImage_cover" name="imageFile_cover" class="text_buttons"/>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<div class="block">
+				<input type="submit" id="btnSelectContinue" value="Continue »" class="text_buttons"/>
+			</div>
+
+		</form>
+	</div>
+
+</body>
+
+</html>

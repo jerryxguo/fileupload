@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>{{title}}</title>
+	<link rel="stylesheet" href="/stylesheets/style.css" />
+	<!--[if IE]>
+	<link rel="stylesheet" href="/stylesheets/style_ie.css" />
+	<![endif]-->
+</head>
+
+<body>
+	<div class="header">
+		<div id="logo"></div>
+		<div class="content">
+			<h1>{{title}}</h1>
+		</div>
+	</div>
+
+	<div class="content">
+		<p>
+			<span class="bold">{{successMessage}}</span><br/>
+			{{#locations}}{{filename}}<br/>{{/locations}}
+		</p>
+
+		<p><a href="/imageupload/select" class="text_buttons">Select another image</a></p>
+	</div>
+
+</body>
+
+</html>

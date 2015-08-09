@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<job method="PUT">
+	<parameter name="SrcUri">
+		<value>file:///workspace/nodejs/source/ImageUpload/application_releases/ImageUpload/preview/2015-08-09T07_50_11.983Z_DSC05115.JPG</value>
+	</parameter>
+	<parameter name="TargetUri">
+		<value>ftp://root:Superuser@10.15.23.132/./storage/ftp/vodcat/nagraDrop/DSC05115_poster.JPG</value>
+	</parameter>
+</job>

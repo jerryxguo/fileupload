@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>{{title}}</title>
+	<link rel="stylesheet" href="/stylesheets/style.css" />
+	<!--[if IE]>
+	<link rel="stylesheet" href="/stylesheets/style_ie.css" />
+	<![endif]-->
+	<script src="/javascript/imageupload_ui.js"></script>
+	<script language="javascript">
+	var arrSquareAspectRatioRange = [{{minimumAspectRatio}}, {{maximumAspectRatio}}];
+	</script>
+</head>
+
+<body>
+	<div class="header">
+		<div id="logo"></div>
+		<div class="content">
+			<h1>{{title}}</h1>
+		</div>
+	</div>
+
+	<div class="content">
+		<p>{{#errors}}<li class="error">{{error}}</li>{{/errors}}</p>
+
+		<form action="/imageupload/publish" method="POST" enctype="application/x-www-form-urlencoded">
+
+		<input type="hidden" name="onPreviewPage" value="true"/>
+		<input type="hidden" name="imageType" value="{{imageType}}"/>
+		<input type="hidden" name="imageCategory" value="{{imageCategory}}"/>
+		<input type="hidden" name="imageID" value="{{imageID}}"/>
+
+		<p class="bold">You selected:</p>
+		{{#filenames}}
+			<input type="hidden" name="name_{{index}}" value="{{filename}}"/>
+			<input type="hidden" name="location_{{index}}" value="{{location}}"/>
+			<p class="block_colour clear">
+				{{^isSingleFileUpload}}<span class="bold">{{title}}</span>{{/isSingleFileUpload}}
+				{{filename}}
+			</p>
+			<a href="javascript:void(0)" onclick="togglePreview('preview_filename_{{index}}')"">
+				<img src="{{imageBase}}{{location}}" class="preview_thumbnail">
+			</a>
+			<div class="preview_detail">
+				<p class="bold">Image Details</p>
+				<table border=0>
+					<tr>
+						<td>Width:</td>
+						<td id="txtImageWidth_{{index}}" class="indented"/>
+					</tr>
+					<tr>
+						<td>Height:</td>
+						<td id="txtImageHeight_{{index}}" class="indented"/>
+					</tr>
+				</table>
+				<a href="javascript:void(0)" onclick="togglePreview('preview_filename_{{index}}')"">
+					<div class="text_buttons">Preview Original Size</div>
+				</a>
+			</div>
+			<a href="javascript:void(0)" id="preview_filename_{{index}}" class="overlay" onclick="togglePreview('preview_filename_{{index}}')"">
+				<div class="overlay_background"></div>
+				<p><div class="text_buttons" style="width: 70px">× Close</div></p>
+				<img src="{{imageBase}}{{location}}" onload="setImageDimensions(event, null, {{index}}{{#isSingleFileUpload}}, '{{imageType}}', '{{imageCategory}}'{{/isSingleFileUpload}})" ieIndex="{{index}}" {{#isSingleFileUpload}} ieImageType="{{imageType}}" ieImageCategory="{{imageCategory}}"{{/isSingleFileUpload}}>
+			</a>
+		{{/filenames}}
+
+		<p class="bold clear">Please confirm the following details are correct:</p>
+		<div class="block_colour">
+			<table border=0>
+				<tr class="preview_row">
+					<td><span class="bold">Image Type:</span></td>
+					<td class="indented">
+						{{#isVOD}}VOD{{/isVOD}}
+						{{#isNODE}}Node{{/isNODE}}
+						{{#isSERIES}}Series{{/isSERIES}}
+					</td>
+				</tr>
+				<tr class="preview_row">
+					<td><span id="lblImageID" class="bold">
+						{{#isVOD}}Content ID:{{/isVOD}}
+						{{#isNODE}}Node Public ID:{{/isNODE}}
+						{{#isSERIES}}Series ID:{{/isSERIES}}
+					</span></td>
+					<td class="indented">{{imageID}}</td>
+				</tr>
+				{{^isSERIES}}
+				<tr class="preview_row">
+					<td><span id="lblImageCategory" class="bold">
+						{{#isVOD}}Aspect:{{/isVOD}}
+						{{#isNODE}}Category:{{/isNODE}}
+					</span></td>
+					<td class="indented">
+						{{#isVOD_LANDSCAPE}}Landscape{{/isVOD_LANDSCAPE}}
+						{{#isVOD_POSTER}}Poster{{/isVOD_POSTER}}
+						{{#isVOD_SQUARE}}Square{{/isVOD_SQUARE}}
+						{{#isNODE_SINGLEIMAGE}}Single Image{{/isNODE_SINGLEIMAGE}}
+						{{#isNODE_CHANNELPAGE}}Channel Page{{/isNODE_CHANNELPAGE}}
+					</td>
+				</tr>
+				{{/isSERIES}}
+			</table>
+			<p id="txtAspectMessage"/>
+		</div>
+
+		<div class="block end">
+			<input type="submit" id="btnPreviewBack" value="« Back" class="text_buttons" onclick="document.forms[0].action='/imageupload/select';"/>
+			<input type="submit" id="btnPreviewContinue" value="Continue »" class="text_buttons"/>
+		</div>
+	</div>
+
+</body>
+
+</html>

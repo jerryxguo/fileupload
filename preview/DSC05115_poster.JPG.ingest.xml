@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<LysisData id="FOXTEL" scheduleDate="2015-08-09T07:55:23Z">
+	<Image id="Img_1_Promo_poster_Main" title="1_Promo_poster_Main" illustratedRef="1" startDate="2015-08-09T07:55:23Z" expiryDate="2016-08-08T07:55:23Z">
+		<Media id="Img_1_poster" fileName="DSC05115_poster.JPG" format="Image_Basic" fileSize="5763699" srcAssetType="Image">
+			<AssetDeviceLink storageDevice="CFI_ON_CIS01" relativePath="nagraDrop/" type="Source"/>
+		</Media>
+		<Image id="Img_1_Promo_poster_Version" title="1_Promo_poster_Version" startDate="2015-08-09T07:55:23Z" expiryDate="2016-08-08T07:55:23Z" encProfileName="Process_Images_01" preLoaded="false">
+			<EpgDescription>
+				<EpgElement key="ImageType">poster</EpgElement>
+			</EpgDescription>
+		</Image>
+	</Image>
+</LysisData>

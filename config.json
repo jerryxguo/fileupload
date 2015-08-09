@@ -1,0 +1,58 @@
+{
+	"applicationTitle": "1.0",
+	"previewImageLocation": "/workspace/nodejs/source/ImageUpload/application_releases/ImageUpload/preview/",
+	"previewImageExpiryHours": "24",
+	"listenPort": "8888",
+	"imageValidTypes": [
+		"image/jpeg",
+		"image/pjpeg",
+		"image/png",
+		"image/x-png"
+	],
+	"imageCategoryRules": {
+		"minimumAspectRatioSquare": "0.9",
+		"maximumAspectRatioSquare": "1.1"
+	},
+	"publishServers": {
+		"origin": {
+			"uri": "ftp://cdn:cdn@10.15.21.5/",
+			"imageTarget": "./Mount2/drop/images/",
+			"cdnURLBasePath": "./Mount2/drop/images/",
+			"copyMessage": "Now copy the image filename into CMS."
+		},
+		"cis": {
+			"uri": "ftp://root:Superuser@10.15.23.132/",
+			"imageTarget": "./storage/ftp/vodcat/drop/",
+			"ingestTarget": "./storage/ftp/vodcat/drop/",
+			"imageExpiryHours": "8760",
+			"successMessage": "Successfully uploaded to CIS at:",
+			"cmsImageType": {
+				"Landscape": "landscape",
+				"Poster": "poster",
+				"Square": "square"
+			},
+			"ingestFixedFields": {
+				"Data_scheduleDate": "TEL",
+				"Data_Image_ID_prefix": "Img_",
+				"Data_Image_ID_suffix": "_Promo",
+				"Data_Image_TITLE_suffix": "_Main",
+				"Data_Image_Media_ID_prefix": "Img_",
+				"Data_Image_Media_format": "Image_Basic",
+				"Data_Image_Media_srcAssetType": "Image",
+				"Data_Image_Media_AssetDeviceLink_storageDevice": "CFI_ON_CIS01",
+				"Data_Image_Media_AssetDeviceLink_relativePath": "drop/",
+				"Data_Image_Media_AssetDeviceLink_type": "Source",
+				"Data_Image_Image_ID_prefix": "Img_",
+				"Data_Image_Image_ID_suffix": "_Version",
+				"Data_Image_Image_TITLE_suffix": "_Version",
+				"Data_Image_Image_endProfileName": "Process_Images_01",
+				"Data_Image_Image_preLoaded": "false"
+			}
+		}
+	},
+	"cfi": {
+		"pollingLocation": "/workspace/nodejs/source/ImageUpload/application_releases/ImageUpload/preview/Polling/",
+		"statusLocation": "/workspace/nodejs/source/ImageUpload/application_releases/ImageUpload/preview/Status/",
+		"statusCheckTimeout": "60000"
+	}
+}
